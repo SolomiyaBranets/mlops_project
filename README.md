@@ -7,6 +7,7 @@ To start airflow run ```docker-compose up```.
 To start docker container, that does model training and inference run ```cd MLOps; docker build -t docker-ml-model -f Dockerfile .;  docker-compose up```
 
 Now we can start running pipelines.
+<<<<<<< HEAD
 Ml pipeline pulles the data with the help of dvc, trains the model, saves it as export.pkl in commits it back:
 ![Diagram](screenshots/ml_pipeline.PNG)
 
