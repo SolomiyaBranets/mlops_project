@@ -7,7 +7,7 @@ To start airflow run ```docker-compose up```.
 To start docker container, that does model training and inference run ```cd MLOps; docker build -t docker-ml-model -f Dockerfile .;  docker-compose up```
 
 Now we can start running pipelines.
-Ml pipeline pulles the data with the help of dvc, trains the model, saves it as export.pkl in commits it back:
+Ml pipeline pulles the data with the help of dvc, trains the model, saves it as export.pkl and commits it back:
 
 ![Diagram](screenshots/ml_pipeline.PNG)
 
@@ -17,6 +17,6 @@ Data pipeline read an image from data/new_images folder, predicts the breed of a
 
 There is another pipeline in the middle, but it's manual: human workers take images from data/verify folder and move them to data/verified folder while renaming the image with the proper breed if needed.
 
-And the last pipeline is retraining. It takes all the images from the data/verified folder, gives them proper names, suitable for training and moves them to the folder where the training data is located. Than it commits the changes with dvc and git:
+And the last pipeline is retraining. It takes all the images from the data/verified folder, gives them proper names, suitable for training and moves them to the folder where the training data is located - data/images. Than it commits the changes with dvc and git:
 
 ![Diagram](screenshots/retraining_pipeline.PNG)
