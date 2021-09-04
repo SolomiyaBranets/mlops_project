@@ -54,7 +54,7 @@ def outgoing(responce, **kwargs):
         return("empty directory")
 
 
-with DAG(dag_id='data_pipeline', schedule_interval='@daily', start_date=datetime(2021,8,17), catchup=False) as dag:
+with DAG(dag_id='data_pipeline', schedule_interval='@None', start_date=datetime(2021,8,17), catchup=False) as dag:
     p0 = PythonOperator(task_id='processing', python_callable = _process)
     p1 = PythonOperator(task_id='verification', python_callable = verification, 
                                                 op_kwargs={'responce': p0.output})

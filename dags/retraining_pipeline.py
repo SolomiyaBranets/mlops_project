@@ -41,7 +41,7 @@ def _extend_training_set():
         return("moved to images") 
     else: return("empty directory") 
 
-with DAG(dag_id='retraining_pipeline', schedule_interval='@daily', start_date=datetime(2021,8,17), catchup=False) as dag:
+with DAG(dag_id='retraining_pipeline', schedule_interval='@None', start_date=datetime(2021,8,17), catchup=False) as dag:
     p0 = PythonOperator(task_id='extend_training_set', python_callable = _extend_training_set)
     p1 = BashOperator(task_id='commit_new_training_data', bash_command = "cd MLOps; dvc commit; dvc push; git commit data/.gitignore data/images.dvc -m 'new data commit by retraining_pipeline dag'; git push")
     p0 >> p1

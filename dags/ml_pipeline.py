@@ -12,7 +12,7 @@ def _train():
     print(r, r.text)
 
 
-with DAG(dag_id='ml_pipeline', schedule_interval='@daily', start_date=datetime(2021,8,17), catchup=False) as dag:
+with DAG(dag_id='ml_pipeline', schedule_interval='@None', start_date=datetime(2021,8,17), catchup=False) as dag:
     p0 = BashOperator(task_id='training_data', bash_command = "cd MLOps; git pull; dvc pull;")
     p1 = PythonOperator(task_id='model', python_callable = _train)
     p2 = BashOperator(task_id='repository', bash_command = "cd MLOps; dvc commit; dvc push; git commit data/.gitignore data/images.dvc -m 'latest model commit by ml_pipeline dag'; git push")
